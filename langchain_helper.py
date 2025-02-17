@@ -1,7 +1,12 @@
+import os
+from dotenv import load_dotenv
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnableLambda
+
+load_dotenv()
 
 prompt = ChatPromptTemplate.from_messages([
     ('system','''You are a wordwide food expert and you only give me the restrunt name for a specfic contary
@@ -9,7 +14,7 @@ prompt = ChatPromptTemplate.from_messages([
     ('human','I want to open a resturant for {cuisine} food, Can you kindly suggest me a name for this')
 ])
 
-model = ChatGoogleGenerativeAI(model="gemini-1.5-flash" , api_key='AIzaSyA77gUQw_Fzk2L4hJx_6fzQOSZipJn_ZTg')
+model = ChatGoogleGenerativeAI(model="gemini-1.5-flash" , api_key=os.getenv("GEMINI_API_KEY"))
 
 
 def food_prompt(restrunt_name):
